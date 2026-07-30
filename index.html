@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Finance Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-brand">
+      <div class="loader-mark">
+        <svg viewBox="0 0 48 48" width="48" height="48">
+          <path d="M6 34 L16 20 L24 28 L42 8" fill="none" stroke="url(#loaderGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="loaderGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563EB"/>
+              <stop offset="1" stop-color="#22C55E"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="loader-title">Smart Finance</div>
+      <div class="loader-bar"><span id="loader-progress"></span></div>
+    </div>
+  </div>
+
+  <!-- ============ APP SHELL ============ -->
+  <div id="app" class="app">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg viewBox="0 0 48 48" width="22" height="22">
+              <path d="M6 34 L16 20 L24 28 L42 8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="brand-name">Finance</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" title="Yig'ish/Yoyish">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav class="nav" id="nav">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <a href="#/dashboard" class="nav-item" data-route="dashboard">
+          <span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span>
+        </a>
+        <a href="#/income" class="nav-item" data-route="income">
+          <span class="nav-icon">💰</span><span class="nav-label">Kirim</span>
+        </a>
+        <a href="#/expense" class="nav-item" data-route="expense">
+          <span class="nav-icon">💸</span><span class="nav-label">Chiqim</span>
+        </a>
+        <a href="#/reports" class="nav-item" data-route="reports">
+          <span class="nav-icon">📊</span><span class="nav-label">Hisobot</span>
+        </a>
+        <a href="#/goals" class="nav-item" data-route="goals">
+          <span class="nav-icon">🎯</span><span class="nav-label">Maqsadlar</span>
+        </a>
+        <a href="#/budget" class="nav-item" data-route="budget">
+          <span class="nav-icon">📅</span><span class="nav-label">Budjet</span>
+        </a>
+        <a href="#/stats" class="nav-item" data-route="stats">
+          <span class="nav-icon">📈</span><span class="nav-label">Statistika</span>
+        </a>
+        <a href="#/settings" class="nav-item" data-route="settings">
+          <span class="nav-icon">⚙</span><span class="nav-label">Sozlamalar</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="mini-quote" id="miniQuote"></div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN COLUMN ===== -->
+    <div class="main-col">
+
+      <!-- ===== HEADER ===== -->
+      <header class="header">
+        <div class="header-left">
+          <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" title="Menyu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div>
+            <div class="header-title" id="pageTitle">Dashboard</div>
+            <div class="header-sub" id="headerDate">—</div>
+          </div>
+        </div>
+
+        <div class="header-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="globalSearch" placeholder="Qidirish... (tranzaksiya, kategoriya)" autocomplete="off">
+          <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="header-right">
+          <div class="header-clock" id="headerClock">00:00:00</div>
+          <button class="icon-btn" id="notifBtn" title="Bildirishnomalar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <span class="notif-dot" id="notifDot"></span>
+          </button>
+          <button class="icon-btn" id="darkModeBtn" title="Tungi rejim">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+          </button>
+          <div class="user-menu" id="userMenu">
+            <img src="avatar.svg" alt="Foydalanuvchi" class="avatar" id="avatarImg">
+            <div class="user-dropdown" id="userDropdown">
+              <div class="user-dropdown-name" id="dropdownName">Foydalanuvchi</div>
+              <a href="#/settings" data-route="settings">Profilni tahrirlash</a>
+              <a href="#" id="printBtn">Chop etish</a>
+              <a href="#" id="exportPdfBtn">PDF eksport</a>
+              <a href="#" id="exportExcelBtn">Excel eksport</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== DYNAMIC MAIN ===== -->
+      <main id="main" class="main"></main>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== MODAL ROOT ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalRoot"></div>
+  </div>
+
+  <!-- ===== CONFETTI CANVAS ===== -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
