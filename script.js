@@ -6,14 +6,66 @@
 (function () {
   "use strict";
 
+  /* ================= ICON SYSTEM (SVG, no emoji) ================= */
+  const ICON_PATHS = {
+    home: '<path d="M4 11 12 4l8 7"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-5h4v5"/>',
+    trendUp: '<polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/>',
+    trendDown: '<polyline points="3 7 9 13 13 9 21 18"/><polyline points="15 18 21 18 21 12"/>',
+    barChart: '<rect x="4" y="10" width="3.6" height="10" rx="1"/><rect x="10.2" y="4" width="3.6" height="16" rx="1"/><rect x="16.4" y="13" width="3.6" height="7" rx="1"/>',
+    target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>',
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>',
+    calendarRange: '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="7.5" y1="14.5" x2="16.5" y2="14.5"/>',
+    activity: '<polyline points="2 12 6 12 9 4 13 20 16 12 22 12"/>',
+    sliders: '<line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="7" cy="18" r="2" fill="currentColor" stroke="none"/>',
+    briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="12" x2="21" y2="12"/>',
+    building: '<rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6.5" width="2" height="2"/><rect x="14" y="6.5" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="15.5" width="4" height="5.5"/>',
+    gift: '<rect x="3" y="9" width="18" height="11" rx="1"/><line x1="12" y1="9" x2="12" y2="20"/><path d="M3 9h18"/><path d="M12 9c-1.5-4-6-4-6-1s3 1 6 1"/><path d="M12 9c1.5-4 6-4 6-1s-3 1-6 1"/>',
+    laptop: '<rect x="4" y="5" width="16" height="10" rx="1"/><line x1="2" y1="19" x2="22" y2="19"/>',
+    ribbon: '<circle cx="12" cy="8" r="5"/><path d="M9 12.5 7 21l5-3 5 3-2-8.5"/>',
+    box: '<path d="M3 8 12 4l9 4-9 4-9-4Z"/><path d="M3 8v9l9 4 9-4V8"/><line x1="12" y1="12" x2="12" y2="21"/>',
+    car: '<path d="M4 16V11l2-5h12l2 5v5"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/>',
+    cart: '<circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2l2.5 12h10L20 8H6.5"/>',
+    wifi: '<path d="M2 8.5a16 16 0 0 1 20 0"/><path d="M5.5 12a11 11 0 0 1 13 0"/><path d="M9 15.5a6 6 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor" stroke="none"/>',
+    zap: '<polygon points="13 2 4 14 11 14 10 22 20 9 13 9 13 2"/>',
+    flame: '<path d="M12 3c3 3 5 6 5 9a5 5 0 0 1-10 0c0-1.6.8-2.8 1.8-4.1C10 6.8 11 5 12 3Z"/>',
+    heartPulse: '<path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/>',
+    book: '<path d="M4 5a2 2 0 0 1 2-2h6v18H6a2 2 0 0 1-2-2Z"/><path d="M20 5a2 2 0 0 0-2-2h-6v18h6a2 2 0 0 0 2-2Z"/>',
+    film: '<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="17" y2="20"/><line x1="3" y1="9" x2="7" y2="9"/><line x1="3" y1="15" x2="7" y2="15"/><line x1="17" y1="9" x2="21" y2="9"/><line x1="17" y1="15" x2="21" y2="15"/>',
+    gem: '<path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M2 9h20"/><path d="M8.5 3 12 9l3.5-6"/>',
+    stack: '<polygon points="12 3 21 8 12 13 3 8"/><polyline points="3 13.5 12 18.5 21 13.5"/>',
+    layers: '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.6" y1="4.6" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.4" y2="19.4"/><line x1="4.6" y1="19.4" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.4" y2="4.6"/>',
+    pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    trash: '<path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+    plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+    check: '<polyline points="20 6 9 17 4 12"/>',
+    x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    checkCircle: '<circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/>',
+    xCircle: '<circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/>',
+    info: '<circle cx="12" cy="12" r="9"/><line x1="12" y1="16" x2="12" y2="11.5"/><circle cx="12" cy="8" r="0.15" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>',
+    alertTriangle: '<path d="M12 3 2 20h20Z"/><line x1="12" y1="10" x2="12" y2="14.5"/><circle cx="12" cy="17.3" r="0.15" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>',
+    inbox: '<path d="M3 9 5 3h14l2 6"/><path d="M3 9v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/><path d="M3 9h5a1 1 0 0 1 1 1 3 3 0 0 0 6 0 1 1 0 0 1 1-1h5"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+    arrowDownCircle: '<circle cx="12" cy="12" r="9"/><polyline points="8 11 12 15 16 11"/><line x1="12" y1="8" x2="12" y2="15"/>',
+    arrowUpCircle: '<circle cx="12" cy="12" r="9"/><polyline points="8 13 12 9 16 13"/><line x1="12" y1="16" x2="12" y2="9"/>',
+    quote: '<path d="M7 8c-2 0-3.5 1.6-3.5 4S5 16 7 16c.4 2-1 4-3 4.5"/><path d="M16 8c-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c.4 2-1 4-3 4.5"/>',
+    coin: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.2c0-1 1-1.7 2.5-1.7s2.5.8 2.5 1.7-1 1.3-2.5 1.8-2.5.9-2.5 1.8 1 1.7 2.5 1.7 2.5-.7 2.5-1.7"/><line x1="12" y1="6.3" x2="12" y2="7.5"/><line x1="12" y1="16.5" x2="12" y2="17.7"/>'
+  };
+  function ic(name, size) {
+    size = size || 18;
+    const d = ICON_PATHS[name] || ICON_PATHS.box;
+    return '<svg class="icon-svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
+  }
+
   /* ================= CONSTANTS ================= */
   const INCOME_CATEGORIES = ["Ish haqi", "Biznes", "Bonus", "Freelance", "Sovg'a", "Boshqa"];
   const EXPENSE_CATEGORIES = ["Transport", "Oziq-ovqat", "Internet", "Elektr", "Gaz", "Ijara", "Sog'liq", "O'qish", "Ko'ngilochar", "Boshqa"];
   const CATEGORY_ICON = {
-    "Ish haqi": "💼", "Biznes": "🏢", "Bonus": "🎁", "Freelance": "💻", "Sovg'a": "🎀", "Boshqa": "📦",
-    "Transport": "🚗", "Oziq-ovqat": "🍔", "Internet": "🌐", "Elektr": "⚡", "Gaz": "🔥",
-    "Ijara": "🏠", "Sog'liq": "💊", "O'qish": "📚", "Ko'ngilochar": "🎬"
+    "Ish haqi": "briefcase", "Biznes": "building", "Bonus": "gift", "Freelance": "laptop", "Sovg'a": "ribbon", "Boshqa": "box",
+    "Transport": "car", "Oziq-ovqat": "cart", "Internet": "wifi", "Elektr": "zap", "Gaz": "flame",
+    "Ijara": "home", "Sog'liq": "heartPulse", "O'qish": "book", "Ko'ngilochar": "film"
   };
+  function catIcon(cat, size) { return ic(CATEGORY_ICON[cat] || "box", size); }
   const QUOTES = [
     "Kichik tejamkorlik — katta erkinlikning boshlanishi.",
     "Pul sizga xizmat qilishi kerak, siz pulga emas.",
@@ -24,29 +76,8 @@
     "Jamg'arma — kelajakdagi sizga yuborilgan sovg'a."
   ];
 
-  /* ================= STORE ================= */
-  const Store = {
-    keys: { tx: "sfd_transactions", goals: "sfd_goals", budgets: "sfd_budgets", settings: "sfd_settings" },
-    load(key, fallback) {
-      try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-      } catch (e) { return fallback; }
-    },
-    save(key, val) {
-      try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* quota / private mode */ }
-    },
-    getTx() { return this.load(this.keys.tx, null); },
-    setTx(v) { this.save(this.keys.tx, v); },
-    getGoals() { return this.load(this.keys.goals, null); },
-    setGoals(v) { this.save(this.keys.goals, v); },
-    getBudgets() { return this.load(this.keys.budgets, null); },
-    setBudgets(v) { this.save(this.keys.budgets, v); },
-    getSettings() { return this.load(this.keys.settings, null); },
-    setSettings(v) { this.save(this.keys.settings, v); }
-  };
+  /* Store, uid(), and Auth are provided by auth.js, loaded before this file. */
 
-  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
 
   /* ================= SEED DATA (first run only) ================= */
   function seedIfEmpty() {
@@ -122,13 +153,13 @@
 
   /* ================= TOAST ================= */
   const Toast = {
-    icons: { success: "✓", error: "✕", info: "ℹ", warn: "!" },
+    icons: { success: "checkCircle", error: "xCircle", info: "info", warn: "alertTriangle" },
     show(type, title, msg, duration) {
       const container = document.getElementById("toastContainer");
       const el = document.createElement("div");
       el.className = "toast " + type;
       el.innerHTML =
-        '<div class="toast-icon">' + this.icons[type] + '</div>' +
+        '<div class="toast-icon">' + ic(this.icons[type], 16) + '</div>' +
         '<div class="toast-body"><div class="toast-title">' + Fmt.escape(title) + '</div>' +
         (msg ? '<div class="toast-msg">' + Fmt.escape(msg) + '</div>' : '') + '</div>';
       container.appendChild(el);
@@ -486,12 +517,11 @@
       }).filter(a => a.pct >= 0.8).sort((a, b) => b.pct - a.pct);
 
       const quote = QUOTES[new Date().getDate() % QUOTES.length];
-      document.getElementById("miniQuote").textContent = "\u201C" + quote + "\u201D";
 
       return `
       <div class="view">
         <div class="section-head">
-          <div><h2>Xush kelibsiz 👋</h2><p>Moliyaviy holatingizga umumiy nazar</p></div>
+          <div><h2>Xush kelibsiz</h2><p>Moliyaviy holatingizga umumiy nazar</p></div>
           <button class="btn btn-primary" id="btnAddTxDash">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
             Tranzaksiya qo'shish
@@ -500,25 +530,25 @@
 
         <div class="grid stat-grid">
           <div class="card stat-card hero">
-            <div class="stat-icon">💎</div>
+            <div class="stat-icon">${ic("gem", 18)}</div>
             <div class="stat-label">Jami balans</div>
             <div class="stat-value countup" data-target="${s.balance}">0</div>
             <div class="stat-delta up">↑ ${((s.savings / (s.totalIncome || 1)) * 100).toFixed(0)}% jamg'arma</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-icon icon-green">📈</div>
+            <div class="stat-icon icon-green">${ic("trendUp", 18)}</div>
             <div class="stat-label">Jami kirim</div>
             <div class="stat-value countup" data-target="${s.totalIncome}">0</div>
             <div class="stat-delta up">↑ Barcha davr</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-icon icon-red">📉</div>
+            <div class="stat-icon icon-red">${ic("trendDown", 18)}</div>
             <div class="stat-label">Jami chiqim</div>
             <div class="stat-value countup" data-target="${s.totalExpense}">0</div>
             <div class="stat-delta down">↓ Barcha davr</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-icon icon-amber">🏦</div>
+            <div class="stat-icon icon-amber">${ic("layers", 18)}</div>
             <div class="stat-label">Jamg'arma</div>
             <div class="stat-value countup" data-target="${s.savings}">0</div>
             <div class="stat-delta ${s.savings >= 0 ? "up" : "down"}">${s.savings >= 0 ? "↑ Ijobiy" : "↓ Salbiy"}</div>
@@ -526,16 +556,16 @@
         </div>
 
         <div class="grid stat-grid secondary">
-          <div class="card stat-card"><div class="stat-icon icon-blue">☀</div><div class="stat-label">Bugungi xarajat</div><div class="stat-value countup" data-target="${s.todayExpense}">0</div></div>
-          <div class="card stat-card"><div class="stat-icon icon-blue">📅</div><div class="stat-label">Haftalik xarajat</div><div class="stat-value countup" data-target="${s.weekExpense}">0</div></div>
-          <div class="card stat-card"><div class="stat-icon icon-blue">🗓</div><div class="stat-label">Oylik xarajat</div><div class="stat-value countup" data-target="${s.monthExpense}">0</div></div>
-          <div class="card stat-card"><div class="stat-icon icon-blue">📆</div><div class="stat-label">Yillik xarajat</div><div class="stat-value countup" data-target="${s.yearExpense}">0</div></div>
+          <div class="card stat-card"><div class="stat-icon icon-blue">${ic("sun", 18)}</div><div class="stat-label">Bugungi xarajat</div><div class="stat-value countup" data-target="${s.todayExpense}">0</div></div>
+          <div class="card stat-card"><div class="stat-icon icon-blue">${ic("calendar", 18)}</div><div class="stat-label">Haftalik xarajat</div><div class="stat-value countup" data-target="${s.weekExpense}">0</div></div>
+          <div class="card stat-card"><div class="stat-icon icon-blue">${ic("barChart", 18)}</div><div class="stat-label">Oylik xarajat</div><div class="stat-value countup" data-target="${s.monthExpense}">0</div></div>
+          <div class="card stat-card"><div class="stat-icon icon-blue">${ic("calendarRange", 18)}</div><div class="stat-label">Yillik xarajat</div><div class="stat-value countup" data-target="${s.yearExpense}">0</div></div>
         </div>
 
         <div class="two-col">
           <div class="card panel">
             <div class="panel-head"><h3>Oxirgi tranzaksiyalar</h3><a href="#/income" class="muted" data-route="income">Barchasi →</a></div>
-            <div class="tx-list">${recent.length ? recent.map(txRowHtml).join("") : emptyStateHtml("Hozircha tranzaksiya yo'q", "📭")}</div>
+            <div class="tx-list">${recent.length ? recent.map(txRowHtml).join("") : emptyStateHtml("Hozircha tranzaksiya yo'q", "inbox")}</div>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:18px;">
@@ -556,7 +586,7 @@
               ${alerts.map(a => `
                 <div style="margin-bottom:12px;">
                   <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px;">
-                    <span>${CATEGORY_ICON[a.cat] || "📦"} ${a.cat}</span>
+                    <span class="cell-with-icon">${catIcon(a.cat,14)}${a.cat}</span>
                     <span class="badge ${a.pct >= 1 ? "badge-danger" : "badge-warn"}">${Math.round(a.pct * 100)}%</span>
                   </div>
                   <div class="progress-track"><div class="progress-fill ${a.pct >= 1 ? "danger" : "warn"}" style="width:${Math.min(100, a.pct * 100)}%"></div></div>
@@ -570,10 +600,10 @@
           <div class="tx-list">
             ${topCats.length ? topCats.map((c, i) => `
               <div class="tx-row">
-                <div class="tx-avatar" style="background:${Charts.palette[i % Charts.palette.length]}22; color:${Charts.palette[i % Charts.palette.length]};">${CATEGORY_ICON[c.label] || "📦"}</div>
+                <div class="tx-avatar" style="background:${Charts.palette[i % Charts.palette.length]}22; color:${Charts.palette[i % Charts.palette.length]};">${catIcon(c.label,16)}</div>
                 <div class="tx-info"><div class="tx-name">${Fmt.escape(c.label)}</div></div>
                 <div class="tx-amount out">${Fmt.money(c.value)}</div>
-              </div>`).join("") : emptyStateHtml("Ma'lumot yo'q", "📊")}
+              </div>`).join("") : emptyStateHtml("Ma'lumot yo'q", "barChart")}
           </div>
         </div>
       </div>`;
@@ -679,7 +709,7 @@
           </button>
         </div>
         <div class="grid goal-grid">
-          ${goals.length ? goals.map(goalCardHtml).join("") : emptyStateHtml("Hali maqsad qo'shilmagan", "🎯")}
+          ${goals.length ? goals.map(goalCardHtml).join("") : emptyStateHtml("Hali maqsad qo'shilmagan", "target")}
         </div>
       </div>`;
     },
@@ -698,7 +728,7 @@
           </button>
         </div>
         <div class="grid" style="grid-template-columns:repeat(3,1fr);">
-          ${entries.length ? entries.map(([cat, limit]) => budgetCardHtml(cat, limit, tx)).join("") : emptyStateHtml("Hali budjet belgilanmagan", "📅")}
+          ${entries.length ? entries.map(([cat, limit]) => budgetCardHtml(cat, limit, tx)).join("") : emptyStateHtml("Hali budjet belgilanmagan", "calendar")}
         </div>
       </div>`;
     },
@@ -786,12 +816,12 @@
     return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
   }
 
-  function emptyStateHtml(title, icon) {
-    return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-title">${title}</div><div>Boshlash uchun yangi yozuv qo'shing</div></div>`;
+  function emptyStateHtml(title, iconName) {
+    return `<div class="empty-state"><div class="empty-icon">${ic(iconName, 34)}</div><div class="empty-title">${title}</div><div>Boshlash uchun yangi yozuv qo'shing</div></div>`;
   }
 
   function txRowHtml(t) {
-    const icon = CATEGORY_ICON[t.category] || "📦";
+    const icon = catIcon(t.category, 16);
     const color = t.type === "in" ? "var(--success)" : "var(--danger)";
     return `
     <div class="tx-row" data-id="${t.id}">
@@ -802,8 +832,8 @@
       </div>
       <div class="tx-amount ${t.type === "in" ? "in" : "out"}">${t.type === "in" ? "+" : "-"}${Fmt.money(t.amount, { noSuffix: false })}</div>
       <div class="tx-actions">
-        <button class="tx-edit" title="Tahrirlash" data-id="${t.id}">✎</button>
-        <button class="tx-delete" title="O'chirish" data-id="${t.id}">🗑</button>
+        <button class="tx-edit" title="Tahrirlash" data-id="${t.id}">${ic("pencil",14)}</button>
+        <button class="tx-delete" title="O'chirish" data-id="${t.id}">${ic("trash",14)}</button>
       </div>
     </div>`;
   }
@@ -829,8 +859,8 @@
       <div class="goal-sub">Qolgan: <strong style="color:var(--text)">${Fmt.money(remain)}</strong></div>
       <div style="display:flex; gap:8px; margin-top:4px;">
         <button class="btn btn-outline btn-sm goal-contribute" data-id="${g.id}" style="flex:1;">+ Mablag' qo'shish</button>
-        <button class="btn btn-outline btn-sm btn-icon-only goal-edit" data-id="${g.id}">✎</button>
-        <button class="btn btn-danger-ghost btn-sm btn-icon-only goal-delete" data-id="${g.id}">🗑</button>
+        <button class="btn btn-outline btn-sm btn-icon-only goal-edit" data-id="${g.id}">${ic("pencil",14)}</button>
+        <button class="btn btn-danger-ghost btn-sm btn-icon-only goal-delete" data-id="${g.id}">${ic("trash",14)}</button>
       </div>
     </div>`;
   }
@@ -844,14 +874,14 @@
     return `
     <div class="card budget-card" data-cat="${Fmt.escape(cat)}">
       <div class="budget-top">
-        <div class="budget-cat">${CATEGORY_ICON[cat] || "📦"} ${Fmt.escape(cat)}</div>
+        <div class="budget-cat">${catIcon(cat,15)} ${Fmt.escape(cat)}</div>
         <span class="badge ${badgeClass}">${Math.round((spent / limit) * 100) || 0}%</span>
       </div>
       <div class="progress-track"><div class="progress-fill ${fillClass}" style="width:${pct}%"></div></div>
       <div class="budget-amounts">${Fmt.money(spent)} / ${Fmt.money(limit)}</div>
       <div style="display:flex; gap:8px;">
         <button class="btn btn-outline btn-sm budget-edit" data-cat="${Fmt.escape(cat)}" style="flex:1;">Tahrirlash</button>
-        <button class="btn btn-danger-ghost btn-sm btn-icon-only budget-delete" data-cat="${Fmt.escape(cat)}">🗑</button>
+        <button class="btn btn-danger-ghost btn-sm btn-icon-only budget-delete" data-cat="${Fmt.escape(cat)}">${ic("trash",14)}</button>
       </div>
     </div>`;
   }
@@ -886,7 +916,7 @@
     const wrap = document.getElementById("txTableWrap");
     if (!wrap) return;
     if (!filtered.length) {
-      wrap.innerHTML = emptyStateHtml("Natija topilmadi", "🔍");
+      wrap.innerHTML = emptyStateHtml("Natija topilmadi", "search");
     } else {
       wrap.innerHTML = `
       <table class="tx-table">
@@ -898,14 +928,14 @@
           ${pageItems.map(t => `
             <tr data-id="${t.id}">
               <td><strong>${Fmt.escape(t.name)}</strong></td>
-              <td>${CATEGORY_ICON[t.category] || "📦"} ${Fmt.escape(t.category)}</td>
+              <td><span class="cell-with-icon">${catIcon(t.category,14)}${Fmt.escape(t.category)}</span></td>
               <td>${Fmt.date(t.date)}</td>
               <td style="color:var(--text-faint); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${Fmt.escape(t.note || "—")}</td>
               <td class="tx-amount ${t.type === "in" ? "in" : "out"}">${t.type === "in" ? "+" : "-"}${Fmt.money(t.amount)}</td>
               <td>
                 <div class="tx-actions" style="opacity:1;">
-                  <button class="tx-edit" data-id="${t.id}" title="Tahrirlash">✎</button>
-                  <button class="tx-delete" data-id="${t.id}" title="O'chirish">🗑</button>
+                  <button class="tx-edit" data-id="${t.id}" title="Tahrirlash">${ic("pencil",14)}</button>
+                  <button class="tx-delete" data-id="${t.id}" title="O'chirish">${ic("trash",14)}</button>
                 </div>
               </td>
             </tr>`).join("")}
@@ -1038,10 +1068,10 @@
     const type = editing ? editing.type : (presetType || "out");
     const cats = type === "in" ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
     const html = `
-      <div class="modal-head"><h3>${editing ? "Tranzaksiyani tahrirlash" : "Yangi tranzaksiya"}</h3><button class="modal-close">✕</button></div>
+      <div class="modal-head"><h3>${editing ? "Tranzaksiyani tahrirlash" : "Yangi tranzaksiya"}</h3><button class="modal-close">${ic("x",16)}</button></div>
       <div class="type-toggle" style="margin-bottom:16px;">
-        <button type="button" class="type-in ${type === "in" ? "active-in" : ""}" data-type="in">💰 Kirim</button>
-        <button type="button" class="type-out ${type === "out" ? "active-out" : ""}" data-type="out">💸 Chiqim</button>
+        <button type="button" class="type-in ${type === "in" ? "active-in" : ""}" data-type="in">${ic("arrowDownCircle",15)} Kirim</button>
+        <button type="button" class="type-out ${type === "out" ? "active-out" : ""}" data-type="out">${ic("arrowUpCircle",15)} Chiqim</button>
       </div>
       <div class="form-grid">
         <div class="field full"><label>Nomi</label><input type="text" id="fName" value="${editing ? Fmt.escape(editing.name) : ""}" placeholder="Masalan: Oylik maosh"><div class="field-error-msg"></div></div>
@@ -1105,7 +1135,7 @@
 
   function confirmDeleteTx(id) {
     const html = `
-      <div class="modal-head"><h3>O'chirishni tasdiqlang</h3><button class="modal-close">✕</button></div>
+      <div class="modal-head"><h3>O'chirishni tasdiqlang</h3><button class="modal-close">${ic("x",16)}</button></div>
       <p style="font-size:13.5px; color:var(--text-soft);">Ushbu tranzaksiyani o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.</p>
       <div class="modal-actions">
         <button class="btn btn-outline modal-close">Bekor qilish</button>
@@ -1138,7 +1168,7 @@
     const goals = Store.getGoals() || [];
     const editing = id ? goals.find(g => g.id === id) : null;
     const html = `
-      <div class="modal-head"><h3>${editing ? "Maqsadni tahrirlash" : "Yangi maqsad"}</h3><button class="modal-close">✕</button></div>
+      <div class="modal-head"><h3>${editing ? "Maqsadni tahrirlash" : "Yangi maqsad"}</h3><button class="modal-close">${ic("x",16)}</button></div>
       <div class="form-grid">
         <div class="field full"><label>Maqsad nomi</label><input type="text" id="gName" value="${editing ? Fmt.escape(editing.name) : ""}" placeholder="Masalan: Yangi noutbuk"><div class="field-error-msg"></div></div>
         <div class="field"><label>Maqsad summasi</label><input type="number" id="gTarget" value="${editing ? editing.target : ""}" min="1"><div class="field-error-msg"></div></div>
@@ -1181,7 +1211,7 @@
     const goal = goals.find(g => g.id === id);
     if (!goal) return;
     const html = `
-      <div class="modal-head"><h3>Mablag' qo'shish</h3><button class="modal-close">✕</button></div>
+      <div class="modal-head"><h3>Mablag' qo'shish</h3><button class="modal-close">${ic("x",16)}</button></div>
       <p style="font-size:13px; color:var(--text-soft); margin-bottom:14px;">"${Fmt.escape(goal.name)}" maqsadiga qancha mablag' qo'shmoqchisiz?</p>
       <div class="field"><label>Miqdor</label><input type="number" id="cAmount" min="1" placeholder="0"><div class="field-error-msg"></div></div>
       <div class="modal-actions">
@@ -1200,7 +1230,7 @@
       Modal.close();
       Router.go("goals");
       const newGoal = updated.find(g => g.id === id);
-      if (newGoal.current >= newGoal.target) { launchConfetti(); Toast.success("Tabriklaymiz! 🎉", "Maqsadga erishildi!"); }
+      if (newGoal.current >= newGoal.target) { launchConfetti(); Toast.success("Tabriklaymiz!", "Maqsadga erishildi!"); }
       else Toast.success("Qo'shildi", "Mablag' muvaffaqiyatli qo'shildi");
     });
   }
@@ -1225,7 +1255,7 @@
     const usedCats = Object.keys(budgets);
     const availableCats = EXPENSE_CATEGORIES.filter(c => editing ? c === cat : !usedCats.includes(c));
     const html = `
-      <div class="modal-head"><h3>${editing ? "Budjetni tahrirlash" : "Yangi budjet"}</h3><button class="modal-close">✕</button></div>
+      <div class="modal-head"><h3>${editing ? "Budjetni tahrirlash" : "Yangi budjet"}</h3><button class="modal-close">${ic("x",16)}</button></div>
       <div class="form-grid">
         <div class="field full"><label>Kategoriya</label>
           <select id="bCategory" ${editing ? "disabled" : ""}>${(availableCats.length ? availableCats : EXPENSE_CATEGORIES).map(c => `<option value="${c}" ${editing && c === cat ? "selected" : ""}>${c}</option>`).join("")}</select>
@@ -1280,12 +1310,14 @@
       Store.setSettings(settings);
       applyTheme(wantDark);
       document.getElementById("dropdownName").textContent = settings.userName;
+      const acc = Auth.get();
+      if (acc) { acc.name = settings.userName; Auth.set(acc); }
       Toast.success("Saqlandi", "Sozlamalar yangilandi");
     });
     const resetBtn = document.getElementById("btnResetData");
     if (resetBtn) resetBtn.addEventListener("click", () => {
       const html = `
-        <div class="modal-head"><h3>Diqqat!</h3><button class="modal-close">✕</button></div>
+        <div class="modal-head"><h3>Diqqat!</h3><button class="modal-close">${ic("x",16)}</button></div>
         <p style="font-size:13.5px; color:var(--text-soft);">Barcha ma'lumotlar (tranzaksiyalar, maqsadlar, budjetlar) butunlay o'chiriladi. Davom etasizmi?</p>
         <div class="modal-actions">
           <button class="btn btn-outline modal-close">Bekor qilish</button>
@@ -1356,6 +1388,14 @@
     setInterval(tick, 1000);
   }
 
+  /* ================= SIDEBAR QUOTE ================= */
+  function setMiniQuote() {
+    const el = document.getElementById("miniQuote");
+    if (!el) return;
+    const quote = QUOTES[new Date().getDate() % QUOTES.length];
+    el.innerHTML = '<span class="mini-quote-icon">' + ic("quote", 14) + '</span><span>' + Fmt.escape(quote) + '</span>';
+  }
+
   /* ================= NOTIFICATIONS (budget alerts as demo notifications) ================= */
   function checkNotifications() {
     const tx = Store.getTx() || [];
@@ -1367,11 +1407,13 @@
     document.getElementById("notifDot").classList.toggle("show", hasAlert);
   }
 
-  /* ================= INIT ================= */
-  function init() {
-    seedIfEmpty();
+  /* ================= APP INIT (runs once, after successful login) ================= */
+  let appStarted = false;
+  function initApp() {
+    if (appStarted) return;
+    appStarted = true;
+
     const settings = Store.getSettings() || {};
-    applyTheme(!!settings.darkMode);
     document.getElementById("dropdownName").textContent = settings.userName || "Foydalanuvchi";
     if (settings.avatar) document.getElementById("avatarImg").src = settings.avatar;
 
@@ -1382,14 +1424,6 @@
     });
     document.getElementById("mobileMenuBtn").addEventListener("click", () => {
       document.getElementById("sidebar").classList.toggle("mobile-open");
-    });
-
-    // nav clicks (event delegation, no reload — SPA)
-    document.addEventListener("click", (e) => {
-      const link = e.target.closest("[data-route]");
-      if (link && link.tagName === "A") {
-        // let hashchange handle it naturally
-      }
     });
 
     // dark mode toggle
@@ -1413,7 +1447,13 @@
     document.getElementById("printBtn").addEventListener("click", (e) => { e.preventDefault(); window.print(); });
     document.getElementById("exportPdfBtn").addEventListener("click", (e) => { e.preventDefault(); Toast.info("PDF eksport", "Eksport funksiyasi tez orada faollashtiriladi"); });
     document.getElementById("exportExcelBtn").addEventListener("click", (e) => { e.preventDefault(); Toast.info("Excel eksport", "Eksport funksiyasi tez orada faollashtiriladi"); });
+    document.getElementById("logoutBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      Auth.logout();
+      window.location.href = "login.html";
+    });
 
+    setMiniQuote();
     setupGlobalSearch();
     startClock();
     checkNotifications();
@@ -1426,12 +1466,27 @@
     });
     const initialRoute = window.location.hash.replace("#/", "") || "dashboard";
     Router.go(initialRoute);
+  }
 
-    // hide loading screen
+  /* ================= AUTH SCREEN LOGIC ================= */
+  /* ================= BOOTSTRAP (always runs on load) ================= */
+  function bootstrap() {
+    // Not logged in? Bounce to the standalone login page immediately.
+    if (!Auth.isRegistered() || !Auth.isLoggedIn()) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    seedIfEmpty();
+    const settings = Store.getSettings() || {};
+    applyTheme(!!settings.darkMode);
+
+    initApp();
+
     setTimeout(() => {
       document.getElementById("loading-screen").classList.add("hide");
     }, 900);
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", bootstrap);
 })();

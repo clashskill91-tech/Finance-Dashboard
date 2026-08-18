@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirish — Smart Finance Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-shell">
+
+    <!-- ===== LEFT: BRAND SHOWCASE PANEL ===== -->
+    <aside class="auth-showcase">
+      <div class="showcase-mesh"></div>
+      <div class="showcase-grid"></div>
+      <div class="showcase-orb sc-orb-1"></div>
+      <div class="showcase-orb sc-orb-2"></div>
+
+      <div class="showcase-top">
+        <div class="showcase-brand">
+          <div class="showcase-brand-mark">
+            <svg viewBox="0 0 48 48" width="20" height="20">
+              <path d="M6 34 L16 20 L24 28 L42 8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span>Smart Finance</span>
+        </div>
+      </div>
+
+      <div class="showcase-body">
+        <h1 class="showcase-headline">Moliyangizni<br>bir joyda<br><span class="showcase-accent">nazorat qiling.</span></h1>
+        <p class="showcase-sub">Kirim-chiqimni kuzating, byudjet belgilang va maqsadlaringizga aniq raqamlar bilan erishing.</p>
+
+        <ul class="showcase-features">
+          <li class="feature-item">
+            <span class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg></span>
+            <span>Real vaqtda moliyaviy tahlil</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+            <span>Byudjet va maqsad nazorati</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6Z"/><polyline points="9 12 11.5 14.5 15.5 9.5"/></svg></span>
+            <span>Ma'lumotlar faqat shu qurilmada</span>
+          </li>
+        </ul>
+
+        <div class="showcase-mock">
+          <div class="mock-head">
+            <span class="mock-dot" style="background:#EF4444"></span>
+            <span class="mock-dot" style="background:#F59E0B"></span>
+            <span class="mock-dot" style="background:#22C55E"></span>
+            <span class="mock-head-label">Jami balans</span>
+          </div>
+          <div class="mock-value">24 850 000 <span>so'm</span></div>
+          <div class="mock-bars">
+            <span class="mock-bar" style="--h:38%; --d:0s"></span>
+            <span class="mock-bar" style="--h:62%; --d:.08s"></span>
+            <span class="mock-bar" style="--h:44%; --d:.16s"></span>
+            <span class="mock-bar" style="--h:80%; --d:.24s"></span>
+            <span class="mock-bar" style="--h:56%; --d:.32s"></span>
+            <span class="mock-bar" style="--h:92%; --d:.4s"></span>
+            <span class="mock-bar" style="--h:68%; --d:.48s"></span>
+            <span class="mock-bar" style="--h:100%; --d:.56s"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-footer">© 2026 Smart Finance · Barcha ma'lumotlar shifrlanmagan holda faqat shu brauzerda saqlanadi</div>
+    </aside>
+
+    <!-- ===== RIGHT: LOGIN / REGISTER FORM ===== -->
+    <main class="auth-main">
+      <div class="auth-bg-orb orb-1"></div>
+      <div class="auth-bg-orb orb-2"></div>
+
+      <div class="auth-card">
+        <div class="auth-brand mobile-only-brand">
+          <div class="brand-mark auth-brand-mark">
+            <svg viewBox="0 0 48 48" width="22" height="22">
+              <path d="M6 34 L16 20 L24 28 L42 8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="auth-brand-name">Smart Finance</div>
+        </div>
+
+        <div class="auth-card-head">
+          <h2 class="auth-title" id="authTitle">Xush kelibsiz</h2>
+          <p class="auth-subtitle" id="authSubtitle">Davom etish uchun hisobingizga kiring</p>
+        </div>
+
+        <div class="auth-tabs" id="authTabs">
+          <button type="button" class="auth-tab" data-mode="login">Kirish</button>
+          <button type="button" class="auth-tab" data-mode="register">Ro'yxatdan o'tish</button>
+          <div class="auth-tab-indicator" id="authTabIndicator"></div>
+        </div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="field full">
+            <label>Foydalanuvchi nomi</label>
+            <div class="input-icon-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+              <input type="text" id="loginUsername" autocomplete="username" placeholder="username">
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <div class="field full">
+            <label>Parol</label>
+            <div class="input-icon-wrap pw-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <input type="password" id="loginPassword" autocomplete="current-password" placeholder="••••••••">
+              <button type="button" class="pw-toggle" data-target="loginPassword" title="Parolni ko'rsatish">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <label class="auth-remember"><input type="checkbox" id="rememberMe" checked> Meni eslab qol</label>
+          <button type="submit" class="btn btn-primary auth-submit">
+            Kirish
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </button>
+        </form>
+
+        <form id="registerForm" class="auth-form" novalidate style="display:none;">
+          <div class="field full">
+            <label>Ism</label>
+            <div class="input-icon-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+              <input type="text" id="regName" placeholder="Ismingiz">
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <div class="field full">
+            <label>Foydalanuvchi nomi</label>
+            <div class="input-icon-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 10.5c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5-4 2-4 3.5 4 1 4 2.5"/></svg>
+              <input type="text" id="regUsername" autocomplete="username" placeholder="username">
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <div class="field full">
+            <label>Parol</label>
+            <div class="input-icon-wrap pw-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <input type="password" id="regPassword" autocomplete="new-password" placeholder="Kamida 4 ta belgi">
+              <button type="button" class="pw-toggle" data-target="regPassword" title="Parolni ko'rsatish">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <div class="field full">
+            <label>Parolni tasdiqlang</label>
+            <div class="input-icon-wrap">
+              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <input type="password" id="regPassword2" autocomplete="new-password" placeholder="Parolni qayta kiriting">
+            </div>
+            <div class="field-error-msg"></div>
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit">
+            Ro'yxatdan o'tish
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </button>
+        </form>
+
+        <div class="auth-hint" id="authHint"></div>
+        <button type="button" class="auth-reset-link" id="authResetLink">Hisobni unutdingizmi? Qaytadan sozlash</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
